@@ -11,9 +11,6 @@ namespace CactIFMS
 		public float ppdist = 0f;
 		public float pdist = 0f;
 
-		public Differ(float tstep){
-			step = tstep;
-		}
 
 		public float update(float dist, float tstep){
 			step = tstep;
@@ -31,7 +28,10 @@ namespace CactIFMS
 	{
 		private Rect _windowRect = new Rect(0f, 0f, 400f, 400f);
 		private Vector3 vescom, vesfgwp, vestrans, kscpos;
-		private Differ vel1, vel2, vel3;
+		private float v1, v2, v3;
+		private Differ vel1 = new Differ();
+		private Differ vel2 = new Differ();
+		private Differ vel3 = new Differ();
 		void Start()
 		{
 			// initially set window in middle of screen
@@ -39,6 +39,7 @@ namespace CactIFMS
 			_windowRect.y = Screen.height * 0.5f - _windowRect.height * 0.5f;
 			Debug.Log("CactIFMS [" + this.GetInstanceID().ToString("X")
 				+ "][" + Time.time.ToString("0.0000") + "]: Start");
+
 
 		}
 
@@ -49,7 +50,7 @@ namespace CactIFMS
 		}
 		
 		private string stringifyVec(Vector3 v){
-			return string.Format("<{0:###.##} {1:###.##} {2:###.##}>", v.x, v.y, v.z);
+			return string.Format("<{0:0.000}, {1:0.000}, {2:0.000}>", v.x, v.y, v.z);
 		}
 
 		void DrawWindow(int winid)
@@ -59,7 +60,8 @@ namespace CactIFMS
 			GUILayout.Label("Vessel pos (CoM): " + stringifyVec(vescom));
 			GUILayout.Label("rel.ves.pos (CoM): " + stringifyVec(vescom-kscpos));
 			GUILayout.Label("rel.ves.dst (CoM): " + (vescom-kscpos).magnitude.ToString("0.00"));
-			GUILayout.Label("rel.ves.dst (CoM): " + vel1.update((vescom-kscpos).magnitude, TimeWarp.fixedDeltaTime).ToString("0.00"));
+			GUILayout.Label("rel.ves.vel (CoM): " + v1.ToString("0.00"));
+			/*
 			GUILayout.Label("Vessel pos (GWP): " + stringifyVec(vesfgwp));
 			GUILayout.Label("rel.ves.pos (GWP): " + stringifyVec(vesfgwp-kscpos));
 			GUILayout.Label("rel.ves.dst (GWP): " + (vesfgwp-kscpos).magnitude.ToString("0.00"));
@@ -68,7 +70,7 @@ namespace CactIFMS
 			GUILayout.Label("rel.ves.pos (transform): " + stringifyVec(vestrans-kscpos));
 			GUILayout.Label("rel.ves.dst (transform): " + (vestrans-kscpos).magnitude.ToString("0.00"));
 			GUILayout.Label("rel.ves.dst (transform): " + vel3.update((vestrans-kscpos).magnitude, TimeWarp.fixedDeltaTime).ToString("0.00"));
-
+			*/
 			GUILayout.EndVertical();
 
 			GUI.DragWindow(); // make window draggable
@@ -102,7 +104,6 @@ namespace CactIFMS
 */
 		void FixedUpdate()
 		{
-			if ((Time.time - lastFixedUpdate) > logInterval)
 			{
 				lastFixedUpdate = Time.time;
 				Debug.Log("CactIFMS [" + this.GetInstanceID().ToString("X")
@@ -112,6 +113,7 @@ namespace CactIFMS
 			vesfgwp = FlightGlobals.ActiveVessel.GetWorldPos3D();
 			vestrans = FlightGlobals.ActiveVessel.transform.position;
 			kscpos = GameObject.Find("KSC").transform.position;
+			v1 = vel1.update ((vescom - kscpos).magnitude, TimeWarp.fixedDeltaTime);
 			//TimeWarp.fixedDeltaTime
 		}
 		/*
