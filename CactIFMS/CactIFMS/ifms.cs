@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace CactIMFS
+namespace CactIFMS
 {
 	[KSPAddon(KSPAddon.Startup.Flight , false)]
-	class CactusGUIWindow : MonoBehaviour
+	public class CactIFMS : MonoBehaviour
 	{
 		private Rect _windowRect = new Rect(0f, 0f, 400f, 400f);
 

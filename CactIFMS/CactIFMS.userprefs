@@ -1,1 +1,13 @@
-﻿<Properties StartupItem="CactIFMS/CactIFMS.csproj" />
+﻿<Properties StartupItem="CactIFMS/CactIFMS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CactIFMS/ifms.cs">
+    <Files>
+      <File FileName="CactIFMS/ifms.cs" Line="23" Column="23" />
+      <File FileName="../../SPP/SimplePartlessPlugin/SimplePartlessPlugin/EmptyClass.cs" Line="3" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
