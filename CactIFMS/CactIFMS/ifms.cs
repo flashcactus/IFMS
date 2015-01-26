@@ -56,21 +56,24 @@ namespace CactIFMS
 		void DrawWindow(int winid)
 		{
 			GUILayout.BeginVertical();
-			GUILayout.Label("KSC pos: " + stringifyVec(kscpos));
+
+			GUILayout.Label("KSC pos: " + stringifyVec(kscpos) + "\n --");
+
 			GUILayout.Label("Vessel pos (CoM): " + stringifyVec(vescom));
 			GUILayout.Label("rel.ves.pos (CoM): " + stringifyVec(vescom-kscpos));
 			GUILayout.Label("rel.ves.dst (CoM): " + (vescom-kscpos).magnitude.ToString("0.00"));
-			GUILayout.Label("rel.ves.vel (CoM): " + v1.ToString("0.00"));
-			/*
+			GUILayout.Label("rel.ves.vel (CoM): " + v1.ToString("0.00") + "\n --");
+
 			GUILayout.Label("Vessel pos (GWP): " + stringifyVec(vesfgwp));
 			GUILayout.Label("rel.ves.pos (GWP): " + stringifyVec(vesfgwp-kscpos));
 			GUILayout.Label("rel.ves.dst (GWP): " + (vesfgwp-kscpos).magnitude.ToString("0.00"));
-			GUILayout.Label("rel.ves.dst (GWP): " + vel2.update((vesfgwp-kscpos).magnitude, TimeWarp.fixedDeltaTime).ToString("0.00"));
+			GUILayout.Label("rel.ves.vel (GWP): " + v2.ToString("0.00") + "\n --");
+
 			GUILayout.Label("Vessel pos (transform): " + stringifyVec(vestrans));
 			GUILayout.Label("rel.ves.pos (transform): " + stringifyVec(vestrans-kscpos));
 			GUILayout.Label("rel.ves.dst (transform): " + (vestrans-kscpos).magnitude.ToString("0.00"));
-			GUILayout.Label("rel.ves.dst (transform): " + vel3.update((vestrans-kscpos).magnitude, TimeWarp.fixedDeltaTime).ToString("0.00"));
-			*/
+			GUILayout.Label("rel.ves.vel (transform): " + v3.ToString("0.00") + "\n --");
+
 			GUILayout.EndVertical();
 
 			GUI.DragWindow(); // make window draggable
@@ -114,6 +117,8 @@ namespace CactIFMS
 			vestrans = FlightGlobals.ActiveVessel.transform.position;
 			kscpos = GameObject.Find("KSC").transform.position;
 			v1 = vel1.update ((vescom - kscpos).magnitude, TimeWarp.fixedDeltaTime);
+			v2 = vel2.update ((vesfgwp - kscpos).magnitude, TimeWarp.fixedDeltaTime);
+			v3 = vel3.update ((vestrans - kscpos).magnitude, TimeWarp.fixedDeltaTime);
 			//TimeWarp.fixedDeltaTime
 		}
 		/*
